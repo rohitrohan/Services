@@ -1,0 +1,107 @@
+BobServer Application Setup
+===========================
+
+Overview;
+=========
+BlobServer is a Manheim Webservice that will store and retrieve blobs/documents/artifacts
+under a SOA bus Retrieval will often consist of getting a URL that can be included in an HTML file,
+and displayed to the user as appropriate for the browser.  Meta data, essentially key/value pairs,
+can be associated with any stored object.  Details of the storage will be completely hidden
+from application programmers. 
+
+Requirements:
+=============
+JDK (1.4.x)
+(JDK Sun 1.4.x is currently used in production.)
+Java Web Application Container Server:  Tomcat 5.5.9
+MySql Connector jar
+BlobServer codebase
+
+Dependent Projects:
+===================
+BlobServer depends on the BlobManager application, there should already be the latest jar
+in the Manheim Maven Repository.
+
+CVS Details:
+============
+Module: WebServices/BlobServer
+Connection type: pserver
+Host: cvsdev1.imanheim.com
+Path: /export/repo/cvsroot
+(CVSROOT=:pserver:username@cvsdev1.imanheim.com/export/repo/cvsroot)
+
+Obtain Codebase:
+================
+Checkout module WebServices/BlobServer from CVS.  Place it under your $PROJECTS_HOME directory.
+
+(Optional)
+You can also checkout BlobManager
+
+Build application
+=================
+cd $PROJECTS_HOME/WebServices/BlobServer
+Ensure JAVA_HOME is set
+Build the application by entering "Maven clean war"
+This will create the $PROJECTS_HOME/WebServices/BlobServer/target directory and build
+the application putting a war file in the $PROJECTS_HOME/WebServices/BlobServer/target
+directory.
+
+The dependendent projects can be built from their perspective project directores
+using 'maven jar'.  If you make a change to BlobManager and need to create a new jar from the 
+changes, execute the 'maven jar' command and then copy the new jar file into your local
+repository. Then go back and rerun 'maven clean war' on the BlobServer project.
+
+Java Web Application Container Server Setup:
+============================================
+Use of Tomcat 4.0.x, 4.1.x and 5.0.x and 5.5.x have all been successfully demonstrated.
+(Tomcat 5.5.9 is currently used in production.)
+Also set the system.environment to DEV/STAGE/OR PROD
+
+IMPORTANT *** Make sure to install Tomcat in a path that does not have any spaces in the name.
+
+Tomcat Recommendations:
+-----------------------
+
+Setup a clean Tomcat instance by downloading Tomcat (http://jakarta.apache.org/tomcat/).
+Do not in any way edit or modify the main Tomcat configuration file "server.xml".  
+Use the default server.xml.
+
+You will need to also copy the mysql connector jar into the CATALINA_HOME/lib directory. The jar is located under your local maven repository
+or you can download it from Manheim's repo here: http://midev.imanheim.com/maven/repo/mysql/jars/mysql-connector-java-3.0.11.jar
+
+Finally, the BlobServer uses system.environment valid values are DEV,STAGE,PROD you will need to set this as part of CATALINA_OPTS prior to
+starting tomcat
+
+
+IMPORTANT XERCES NOTE***  On Tomcat 5.5.x when using JDK <= 1.4
+you must COPY the xerces.jar and xml-apis.jar (one or both depending on your Tomcat version)
+to the CATALINA_HOME/common/endorsed directory to "override" the CLASSLOADER xerces issues.  Its a complicated story but basically
+the 1.4 JDK uses the "endorsed standards" overrides mechanism REGARDLESS of how the 
+actual classloader for any application or container is implemented.  
+The Tomcat 5.5 docs have very good information on this
+(http://jakarta.apache.org/tomcat/tomcat-5.5-doc/class-loader-howto.html).
+(If you do not perform the xerces setup and you use JDK <= 1.4 you will get xerces compatibility 
+issues which manifest themselves as SaxParserException errors due to XML parsing incompatibilities).
+
+IMPORTANT ENDORSED NOTE***The endorsed override should no longer be an issue once using JDK 1.5 and Tomcat 5.5.x.
+JDK 1.5 no longer uses the endorsed mechanism for DOM and XERCES
+(http://java.sun.com/j2se/1.5.0/docs/guide/standards/index.html). 
+Tomcat 5.5.x is no longer plagued by many of the earlier versions CLASSLOADER issues. 
+This means if BlobServer is changed to using JDK 1.5 and Tomcat 5.5 there should be
+no need to modify the "endorsed" Tomcat directory
+
+Startup Tomcat and verify it started successfully by going to your localhost:<port# tomcat is on>
+If its successful, stop Tomcat and copy the BlobServer.war file located in the BlobServer/target
+directory to the CATALINA_HOME/webapps dir.  Restart Tomcat.
+
+Once Tomcat is restarted, go to http://localhost:<port#>/blobserver-#version# you should see the word
+BlobServer on the page.
+
+Test Success of the BlobServer by entering this url substituting port 8080 for the port your
+Tomcat server is running on.
+
+http://localhost:8080/blobserver-#version#/findByMetadata?uuid=59C1A160-C4CE-11DA-A160-FC5931692E74
+
+
+
+

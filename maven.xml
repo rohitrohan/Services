@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+ -->
+<project xmlns:j="jelly:core" xmlns:ant="jelly:ant" default="axis-cook:prod">  
+  <ant:property environment="env"/>
+  <preGoal name="war:war">
+        <ant:mkdir dir="${maven.war.webapp.dir}/META-INF/" />
+  	<ant:copy file="${basedir}/conf/context_old.xml" toDir="${maven.war.webapp.dir}/META-INF/" />
+	<ant:mkdir dir="${maven.war.webapp.dir}/cache/" />
+	<attainGoal name="blobserver:build-info"/>  	
+  	<attainGoal name="change-version:setversion"/>
+  	<attainGoal name="wsdoc:wsdoc"/>
+  </preGoal>
+  <postGoal name="javadoc">
+        <ant:mkdir dir="${basedir}/doc/api" />
+  	<ant:copy todir="${basedir}/doc/api">
+            <fileset dir="${maven.docs.dest}/apidocs/"/>
+        </ant:copy>
+  </postGoal>
+ <goal name="cc-continuous">
+        <property name="goal" value="test" />
+        <attainGoal name="axis-cook:prod" />
+        <attainGoal name="tomcat:deploy" />
+        <j:catch var="e">
+            <attainGoal name="multiproject:goal" /> 
+        </j:catch>
+        <attainGoal name="tomcat:undeploy" />
+        <j:if test="${e != null}">
+                    <ant:fail message="${e}" />
+        </j:if>
+  </goal>  
+      <goal name="blobserver:build-info">
+        <tstamp>
+            <format property="TODAY_LONG" pattern="MM-dd-yyyy 'at' h:mm a" locale="en" />
+        </tstamp>
+
+        <!-- Standard filters -->
+        <filterset id="filters">
+            <filter token="DATE_FORMAT" value="MM-dd-yyyy 'at' h:mm a" />
+            <filter token="BUILD_DATE" value="${TODAY_LONG}" />
+            <filter token="BUILD_NUMBER" value="" />
+            <filter token="VERSION" value="${pom.currentVersion}" />
+            <filter token="APP_NAME" value="${pom.name}" />
+        </filterset>
+
+        <copy file="${maven.war.webapp.dir}/WEB-INF/build-info.template" tofile="${maven.war.webapp.dir}/WEB-INF/build-info.properties" preservelastmodified="true" overwrite="true">
+            <filterset refid="filters" />
+        </copy>
+    </goal>
+</project>
+

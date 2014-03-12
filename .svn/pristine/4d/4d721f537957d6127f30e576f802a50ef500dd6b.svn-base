@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+
+    <properties>
+        <title>Server Environment Links</title>
+    </properties>
+
+    <body>
+
+        <section name="BlobServer Servers">
+            <p>This document provides an overview of the various servers that are being used within our environment.</p>
+            <subsection name="Development Server">
+                <table>
+                    <tr>
+                        <td colspan="4">BlobServer doesn't have a development server.  Currently development is done locally.</td>
+                    </tr>
+                   
+                </table>
+            </subsection>
+            <br/>
+            <br/>
+            <subsection name="Staging Server">
+                <table>
+                    <tr>
+                        <th>Server</th>
+                        <th>Link</th>
+                        <th>Monitor</th>
+                    </tr>
+                    <tr>
+                        <td>webservices.imanheim.com</td>
+                        <td><b><a target="_blank" href="http://webservices.imanheim.com/services/BlobServerWebService/monitor/dashboard">Monitor</a></b></td>
+                    </tr>
+                </table>
+            </subsection>
+            <br/>
+            <br/>
+            <subsection name="Production Servers">
+                <table>
+                    <tr>
+                        <th>Server</th>
+                        <th>Link</th>
+                        <th>Monitor</th>
+                    </tr>
+                    <tr>
+                        <td>webservices.manheim.com</td>
+                        <td><b><a target="_blank" href="http://webservices.manheim.com/services/BlobServerWebService/monitor/dashboard">Monitor</a></b></td>
+                      
+                    </tr>
+                </table>
+            </subsection>
+        </section>
+    </body>
+</document>

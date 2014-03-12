@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>  
+   <bean id="authenticationManager" class="com.manheim.authentication.providers.ProviderManager">
+      <property name="providers">
+         <list>
+            <!--ref local="tivoliAuthenticationProvider"/-->
+            <ref local="daoAuthenticationProvider"/>
+         </list>
+      </property>
+   </bean>
+
+   <bean id="jdbcDaoImpl" class="com.manheim.authentication.userdetails.jdbc.JdbcDaoImpl">
+      <property name="dataSource"><ref bean="authDataSource"/></property>
+   </bean>
+   
+   <!--bean id="tivoliAuthenticationProvider" class="com.manheim.authentication.providers.tivoli.TivoliAuthenticationProvider">
+      <property name="userDetailsService"><ref local="jdbcDaoImpl"/></property>
+      <property name="comparePassword" value="false"/>
+   </bean-->
+   <bean id="daoAuthenticationProvider" class="com.manheim.authentication.providers.dao.DaoAuthenticationProvider">
+      <property name="userDetailsService"><ref local="jdbcDaoImpl"/></property>
+      <property name="comparePassword" value="true"/>
+   </bean>
+      
+   <bean id="authenticationProcessingFilter" class="com.manheim.authentication.webapp.AuthenticationProcessingFilter">
+      <property name="authenticationManager"><ref bean="authenticationManager"/></property>
+      <property name="defaultFailureUrl"><value>/login.jsp?login_error=1</value></property>
+      <property name="defaultSuccessUrl"><value>/secure/auth-info.jsp</value></property>
+      <property name="filterProcessingUrl"><value>/j_manheim_security_check</value></property>
+   </bean>
+   <bean id="basicAuthenticationFilter" class="com.manheim.authentication.webapp.BasicAuthProcessingFilter">
+      <property name="authenticationManager"><ref bean="authenticationManager"/></property>
+      <property name="ignoreFailure" value="true"/>
+   </bean>
+   
+   <!--bean id="tivoliBasicAuthenticationFilter" class="com.manheim.authentication.webapp.tivoli.TivoliAuthenticationFilter">
+      <property name="authenticationManager"><ref bean="authenticationManager"/></property>
+      <property name="ignoreFailure" value="true"/>
+   </bean-->
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:j="jelly:core" xmlns:ant="jelly:ant">
+  
+  <preGoal name="clean">  
+	 <ant:delete includeEmptyDirs="true" quiet="true">
+	   <ant:fileset dir="${mahneim.axiscook.clientdest}/com" />
+	 </ant:delete>
+  </preGoal> 
+  
+  <preGoal name="java:compile">
+	<attainGoal name="axis-cook:genclient" />
+  </preGoal>  
+  
+  <postGoal name="jar">
+	<!-- do something after jar goal -->
+  </postGoal>  
+</project>
+

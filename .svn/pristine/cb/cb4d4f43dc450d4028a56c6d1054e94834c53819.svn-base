@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>  
+    <!--bean id="authDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.ibm.as400.access.AS400JDBCDriver"/>
+        <property name="url" value="jdbc:as400://mmsc400.man.cox.com:446/COMMERCE"/>
+		<property name="username" value="COMMERCE"/>
+		<property name="password" value="COMMERCE"/>
+	</bean-->
+        
+    <!-- Load this class so that it will do the environment variable substitution -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
+
+    <!-- change to jndi bean so we can use tomcat connection pools -->
+    <bean id="authDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>java:comp/env/jdbc/AUTHDS-JDBC</value>
+        </property>
+    </bean>
+        
+</beans>

@@ -1,0 +1,20 @@
+As of the time of this writing, the Template is designed to be run on 
+JDK1.4.2 and Tomcat 5.5.9. 
+
+You need to be sure and download and install the
+Tomcat 5.5.9-Compat package as well (this will let you run Tomcat on a 1.4 JDK)
+
+http://jakarta.apache.org/site/downloads/downloads_tomcat-5.cgi
+
+You will also want to make sure you have any database drivers you need in 
+${CATALINA_HOME}/common/lib, set an environment variable:
+
+CATALINA_OPTS="-DUNIQUE-ID=dev-yourusername -Dsystem.environment=DEV"
+
+in your computer manager on Windows or .profile/.bash_profile on *nix.
+
+You will also need Maven 1.0.2 installed, MAVEN_HOME properly set, and it is a 
+good idea to put $MAVEN_HOME/bin in your classpath.
+
+To create your Eclipse project settings, run "maven eclipse" from the root of your
+new Template project folder.

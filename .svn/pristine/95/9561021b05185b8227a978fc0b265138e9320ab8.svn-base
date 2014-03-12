@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="BlobServerWebService-1.1.1-ETEQA4" resourceRoot="" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="BlobServiceSoapBinding" type="wsdl" bindingName="{http://webservices.manheim.com}BlobServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://app-daunt.man.qa:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://app-daunt.man.qa:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl"><con:part><con:url>http://app-daunt.man.qa:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://webservices.manheim.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://webservices.manheim.com" xmlns:intf="http://webservices.manheim.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+  <wsdl:types>
+    <schema elementFormDefault="qualified" targetNamespace="http://webservices.manheim.com" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="store">
+        <complexType>
+          <sequence>
+            <element name="in" type="impl:Source"/>
+            <element name="name" type="xsd:string"/>
+            <element name="meta" type="impl:BlobMetaData"/>
+            <element name="blobType" type="xsd:string"/>
+            <element name="transactionId" type="xsd:string"/>
+            <element name="expiryPolicy" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="Source">
+        <sequence>
+          <element name="attachmentId" nillable="true" type="xsd:string"/>
+          <element name="data" nillable="true" type="xsd:base64Binary"/>
+          <element name="url" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="MetaDataItem">
+        <sequence>
+          <element name="name" nillable="true" type="xsd:string"/>
+          <element name="value" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="ArrayOfMetaDataItem">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="item" type="impl:MetaDataItem"/>
+        </sequence>
+      </complexType>
+      <complexType name="BlobMetaData">
+        <sequence>
+          <element name="items" nillable="true" type="impl:ArrayOfMetaDataItem"/>
+        </sequence>
+      </complexType>
+      <element name="storeResponse">
+        <complexType>
+          <sequence>
+            <element name="storeReturn" type="impl:Blob"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType abstract="true" name="Data">
+        <sequence/>
+      </complexType>
+      <complexType name="Blob">
+        <complexContent>
+          <extension base="impl:Data">
+            <sequence>
+              <element name="createTime" nillable="true" type="xsd:dateTime"/>
+              <element name="expiryPolicy" nillable="true" type="xsd:string"/>
+              <element name="id" nillable="true" type="xsd:string"/>
+              <element name="location" nillable="true" type="xsd:string"/>
+              <element name="name" nillable="true" type="xsd:string"/>
+              <element name="remarks" nillable="true" type="xsd:string"/>
+              <element name="status" nillable="true" type="xsd:string"/>
+              <element name="transactionId" nillable="true" type="xsd:string"/>
+              <element name="type" nillable="true" type="xsd:string"/>
+              <element name="version" type="xsd:long"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="BlobException">
+        <sequence/>
+      </complexType>
+      <element name="fault" type="impl:BlobException"/>
+      <element name="getIdFromName">
+        <complexType>
+          <sequence>
+            <element name="blobName" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="getIdFromNameResponse">
+        <complexType>
+          <sequence>
+            <element name="getIdFromNameReturn" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="getIdFromNameAndVersion">
+        <complexType>
+          <sequence>
+            <element name="blobName" type="xsd:string"/>
+            <element name="version" type="xsd:long"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="getIdFromNameAndVersionResponse">
+        <complexType>
+          <sequence>
+            <element name="getIdFromNameAndVersionReturn" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="getById">
+        <complexType>
+          <sequence>
+            <element name="blobId" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="getByIdResponse">
+        <complexType>
+          <sequence>
+            <element name="getByIdReturn" type="impl:Blob"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="getBlobsByMetadata">
+        <complexType>
+          <sequence>
+            <element name="meta" type="impl:BlobMetaData"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="getBlobsByMetadataResponse">
+        <complexType>
+          <sequence>
+            <element name="getBlobsByMetadataReturn" type="impl:ArrayOf_xsd_anyType"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOf_xsd_anyType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+        </sequence>
+      </complexType>
+      <element name="getBlobByMetadata">
+        <complexType>
+          <sequence>
+            <element name="meta" type="impl:BlobMetaData"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="getBlobByMetadataResponse">
+        <complexType>
+          <sequence>
+            <element name="getBlobByMetadataReturn" type="impl:Blob"/>
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="getIdFromNameRequest">
+    <wsdl:part element="impl:getIdFromName" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="BlobException">
+    <wsdl:part element="impl:fault" name="fault"/>
+  </wsdl:message>
+  <wsdl:message name="getIdFromNameResponse">
+    <wsdl:part element="impl:getIdFromNameResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getByIdResponse">
+    <wsdl:part element="impl:getByIdResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getBlobsByMetadataResponse">
+    <wsdl:part element="impl:getBlobsByMetadataResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="storeRequest">
+    <wsdl:part element="impl:store" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getIdFromNameAndVersionResponse">
+    <wsdl:part element="impl:getIdFromNameAndVersionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="storeResponse">
+    <wsdl:part element="impl:storeResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getIdFromNameAndVersionRequest">
+    <wsdl:part element="impl:getIdFromNameAndVersion" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getBlobByMetadataRequest">
+    <wsdl:part element="impl:getBlobByMetadata" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getBlobsByMetadataRequest">
+    <wsdl:part element="impl:getBlobsByMetadata" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getByIdRequest">
+    <wsdl:part element="impl:getById" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getBlobByMetadataResponse">
+    <wsdl:part element="impl:getBlobByMetadataResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="BlobService">
+    <wsdl:operation name="store">
+      <wsdl:input message="impl:storeRequest" name="storeRequest"/>
+      <wsdl:output message="impl:storeResponse" name="storeResponse"/>
+      <wsdl:fault message="impl:BlobException" name="BlobException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getIdFromName">
+      <wsdl:input message="impl:getIdFromNameRequest" name="getIdFromNameRequest"/>
+      <wsdl:output message="impl:getIdFromNameResponse" name="getIdFromNameResponse"/>
+      <wsdl:fault message="impl:BlobException" name="BlobException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getIdFromNameAndVersion">
+      <wsdl:input message="impl:getIdFromNameAndVersionRequest" name="getIdFromNameAndVersionRequest"/>
+      <wsdl:output message="impl:getIdFromNameAndVersionResponse" name="getIdFromNameAndVersionResponse"/>
+      <wsdl:fault message="impl:BlobException" name="BlobException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getById">
+      <wsdl:input message="impl:getByIdRequest" name="getByIdRequest"/>
+      <wsdl:output message="impl:getByIdResponse" name="getByIdResponse"/>
+      <wsdl:fault message="impl:BlobException" name="BlobException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getBlobsByMetadata">
+      <wsdl:input message="impl:getBlobsByMetadataRequest" name="getBlobsByMetadataRequest"/>
+      <wsdl:output message="impl:getBlobsByMetadataResponse" name="getBlobsByMetadataResponse"/>
+      <wsdl:fault message="impl:BlobException" name="BlobException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getBlobByMetadata">
+      <wsdl:input message="impl:getBlobByMetadataRequest" name="getBlobByMetadataRequest"/>
+      <wsdl:output message="impl:getBlobByMetadataResponse" name="getBlobByMetadataResponse"/>
+      <wsdl:fault message="impl:BlobException" name="BlobException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BlobServiceSoapBinding" type="impl:BlobService">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="store">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="storeRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="storeResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BlobException">
+        <wsdlsoap:fault name="BlobException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getIdFromName">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getIdFromNameRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getIdFromNameResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BlobException">
+        <wsdlsoap:fault name="BlobException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getIdFromNameAndVersion">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getIdFromNameAndVersionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getIdFromNameAndVersionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BlobException">
+        <wsdlsoap:fault name="BlobException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getById">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getByIdRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getByIdResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BlobException">
+        <wsdlsoap:fault name="BlobException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getBlobsByMetadata">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getBlobsByMetadataRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getBlobsByMetadataResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BlobException">
+        <wsdlsoap:fault name="BlobException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getBlobByMetadata">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getBlobByMetadataRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getBlobByMetadataResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BlobException">
+        <wsdlsoap:fault name="BlobException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BlobServiceService">
+    <wsdl:port binding="impl:BlobServiceSoapBinding" name="BlobService">
+      <wsdlsoap:address location="http://ete.preprod.imanheim.com/BlobServerWebService-1.1.1/services/BlobService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.129.36.16:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:endpoint>http://app-ind.man.qa:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:endpoint>http://localhost:8080/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:endpoint>http://prenixwsc0101.man.prep:9384/BlobServerWebService-1.1.1/services/BlobService?</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="getBlobByMetadata" bindingOperationName="getBlobByMetadata" type="Request-Response" outputName="getBlobByMetadataResponse" inputName="getBlobByMetadataRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://prenixwsc0101.man.prep:9384/BlobServerWebService-1.1.1/services/BlobService?</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getBlobByMetadata>
+         <web:meta>
+            <web:items>
+               <!--Zero or more repetitions:-->
+               <web:item>
+                  <web:name>testmetaY</web:name>
+                  <web:value>-1679100085</web:value>
+               </web:item>
+            </web:items>
+         </web:meta>
+      </web:getBlobByMetadata>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getBlobByMetadataRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="VMDevRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.129.36.16:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getBlobByMetadata>
+         <web:meta>
+            <web:items>
+               <!--Zero or more repetitions:-->
+               <web:item>
+                  <web:name>workorder</web:name>
+                  <web:value>12345678</web:value>
+               </web:item>
+            </web:items>
+         </web:meta>
+      </web:getBlobByMetadata>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getBlobByMetadataRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getBlobsByMetadata" bindingOperationName="getBlobsByMetadata" type="Request-Response" outputName="getBlobsByMetadataResponse" inputName="getBlobsByMetadataRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1" sslKeystore=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://prenixwsc0101.man.prep:9384/BlobServerWebService-1.1.1/services/BlobService?</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getBlobsByMetadata>
+         <web:meta>
+            <web:items>
+               <!--Zero or more repetitions:-->
+               <web:item>
+                  <web:name>_REQUIRE_USER</web:name>
+                  <web:value>testdeal1</web:value>
+               </web:item>
+            </web:items>
+         </web:meta>
+      </web:getBlobsByMetadata>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getBlobsByMetadataRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="VMDevRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.129.36.16:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getBlobsByMetadata>
+         <web:meta>
+            <web:items>
+               <!--Zero or more repetitions:-->
+               <web:item>
+                  <web:name>workorder</web:name>
+                  <web:value>12345678</web:value>
+               </web:item>
+            </web:items>
+         </web:meta>
+      </web:getBlobsByMetadata>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getBlobsByMetadataRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getById" bindingOperationName="getById" type="Request-Response" outputName="getByIdResponse" inputName="getByIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://prenixwsc0101.man.prep:9384/BlobServerWebService-1.1.1/services/BlobService?</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getById>
+         <web:blobId>002F23E0-3F82-11DC-BE97-BB8BA38C4F4C</web:blobId>
+      </web:getById>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getByIdRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="VMDevRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.129.36.16:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getById>
+         <web:blobId>05809150-8508-11E1-9150-DBAA9B9FB003</web:blobId>
+      </web:getById>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getByIdRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getIdFromName" bindingOperationName="getIdFromName" type="Request-Response" outputName="getIdFromNameResponse" inputName="getIdFromNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://prenixwsc0101.man.prep:9384/BlobServerWebService-1.1.1/services/BlobService?</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getIdFromName>
+         <web:blobName>612CD690-E26E-11DB-AB28-8B3B01DBEC89</web:blobName>
+      </web:getIdFromName>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getIdFromNameRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="VMDevRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.129.36.16:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getIdFromName>
+         <web:blobName>testpdf</web:blobName>
+      </web:getIdFromName>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getIdFromNameRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getIdFromNameAndVersion" bindingOperationName="getIdFromNameAndVersion" type="Request-Response" outputName="getIdFromNameAndVersionResponse" inputName="getIdFromNameAndVersionRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://app-ind.man.qa:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getIdFromNameAndVersion>
+         <web:blobName></web:blobName>
+         <web:version></web:version>
+      </web:getIdFromNameAndVersion>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getIdFromNameAndVersionRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="VMDevRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.129.36.16:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:getIdFromNameAndVersion>
+         <web:blobName></web:blobName>
+         <web:version></web:version>
+      </web:getIdFromNameAndVersion>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/getIdFromNameAndVersionRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="store" bindingOperationName="store" type="Request-Response" outputName="storeResponse" inputName="storeRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://app-ind.man.qa:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:store>
+         <web:in>
+            <web:attachmentId></web:attachmentId>
+            <web:data>blah</web:data>
+            <!--<web:url>file:///export/home/pdavidson/webservices/OFF_ROAD_CR.pdf</web:url>-->
+            <web:url>file:///export/home/pdavidson/2777962001.pdf</web:url>
+         </web:in>
+         <web:name>testpdf</web:name>
+         <web:meta>
+            <web:items>
+               <web:item>
+                  <web:name>workorder</web:name>
+                  <web:value>12345678</web:value>
+               </web:item>
+               <web:item>
+                  <web:name>appname</web:name>
+                  <web:value>ECRWEB</web:value>
+               </web:item>
+               <web:item>
+                  <web:name>auction</web:name>
+                  <web:value>AAA</web:value>
+               </web:item>
+            </web:items>
+         </web:meta>
+         <web:blobType>pdf</web:blobType>
+         <web:transactionId></web:transactionId>
+         <web:expiryPolicy>default</web:expiryPolicy>
+      </web:store>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/storeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="VMDevRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.129.36.16:9384/BlobServerWebService-1.1.1/services/BlobService?wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservices.manheim.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:store>
+         <web:in>
+            <web:attachmentId></web:attachmentId>
+            <web:data>blah</web:data>
+            <!--<web:url>file:///export/home/pdavidson/webservices/OFF_ROAD_CR.pdf</web:url>-->
+            <web:url>file:///export/home/pdavidson/2777962001.pdf</web:url>
+         </web:in>
+         <web:name>testpdf</web:name>
+         <web:meta>
+            <web:items>
+               <web:item>
+                  <web:name>workorder</web:name>
+                  <web:value>12345678</web:value>
+               </web:item>
+               <web:item>
+                  <web:name>appname</web:name>
+                  <web:value>ECRWEB</web:value>
+               </web:item>
+               <web:item>
+                  <web:name>auction</web:name>
+                  <web:value>AAA</web:value>
+               </web:item>
+            </web:items>
+         </web:meta>
+         <web:blobType>pdf</web:blobType>
+         <web:transactionId></web:transactionId>
+         <web:expiryPolicy>default</web:expiryPolicy>
+      </web:store>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>qawebservice1</con:username><con:password>qawebservice1</con:password></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservices.manheim.com/BlobService/storeRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>

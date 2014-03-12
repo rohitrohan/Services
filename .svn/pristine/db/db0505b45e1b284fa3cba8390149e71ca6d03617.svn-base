@@ -1,0 +1,43 @@
+# Sample ResourceBundle properties file
+log4j.rootLogger=INFO, TXT, global
+
+## removing stdout from og4j.rootLogger for  Jira BM:-195
+##log4j.logger=INFO
+
+## levels
+log4j.logger.org.apache.commons.digester=WARN
+log4j.logger.org.apache.commons.beanutils=WARN
+log4j.logger.org.apache.commons.validator=WARN
+log4j.logger.org.apache.commons.configuration=WARN
+
+log4j.logger.org.apache.commons.httpclient=WARN
+log4j.logger.org.apache.jasper=WARN
+log4j.logger.org.apache.catalina=WARN
+log4j.logger.org.apache.axis=WARN
+log4j.logger.org.apache.velocity=WARN
+log4j.logger.org.springframework=WARN
+log4j.logger.com.manheim.monitor=INFO
+
+
+
+## manheim levels
+
+log4j.appender.global=com.manheim.log.GlobalJDBCAppender
+
+log4j.logger.com.manheim.ws=WARN
+log4j.logger.com.manheim.ws.core=WARN,global
+log4j.logger.com.manheim.ws.log=WARN
+log4j.logger.com.manheim.common=INFO
+log4j.logger.com.manheim.ws.blobserver=INFO
+log4j.logger.com.manheim.blobmanager=INFO
+
+#stdout
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%-5p %d %r %c{3} %m%n
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+
+#TXT
+log4j.appender.TXT=org.apache.log4j.RollingFileAppender
+log4j.appender.TXT.layout=org.apache.log4j.PatternLayout
+log4j.appender.TXT.layout.ConversionPattern=%-5p %d %r %c{3} %m%n
+log4j.appender.TXT.File=${log.output.dir}/BlobServerWebServices-#version#.txt

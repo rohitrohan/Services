@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--  Include this file as-is in your /WEB-INF/ directory to use the monitor api. -->
+<beans>
+    <bean id="monitorMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="defaultHandler" ref="monitorController" />
+    </bean>
+    <bean name="monitorController" class="com.manheim.monitor.web.MonitorController">
+        <property name="monitorManager">
+            <ref bean="monitorManager" />
+        </property>
+        <property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+                <property name="mappings">
+                    <props>
+                        <prop key="/">runAllMonitors</prop>
+                        <prop key="/runAll">runAllMonitors</prop>
+                        <prop key="/dashboard">showMonitorDashboard</prop>
+                        <prop key="/runMonitor">runMonitor</prop>
+                        <prop key="/buildInfo">showBuildInfo</prop>
+                        <prop key="/systemInfo">showSystemInfo</prop>
+                        <prop key="/disableMonitor">removeMonitor</prop>
+                        <prop key="/enableMonitor">addMonitor</prop>
+                        <prop key="/viewMonitorProps">getMonitorProperties</prop>
+                        <prop key="/updateMonitorProps">setMonitorProperties</prop>
+                        <prop key="/testhost">getHostName</prop>
+                    </props>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+        <property name="basename" value="monitor-views"/>
+    </bean>
+
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="classpath:templates/" />
+    </bean>
+
+    <!-- If your environment doesn't support filters comment this bean entry out. -->
+    <bean id="buildInfoFilter" class="com.manheim.monitor.web.filter.BuildInfoFilter">
+        <property name="monitorManager">
+            <ref bean="monitorManager" />
+        </property>
+    </bean>
+</beans>

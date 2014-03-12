@@ -1,0 +1,68 @@
+# -------------------------------------------------------------------
+# Copyright 2005 Maheim.
+#
+#
+# -------------------------------------------------------------------
+maven.repo.remote=http://midev.imanheim.com/maven/repo/,http://mirrors.ibiblio.org/pub/mirrors/maven/,http://www.codeczar.com/maven/,http://www.ganet.org/maven/
+#maven.cvs.username=pdavidson
+
+maven.xdoc.date=bottom
+maven.xdoc.date.format=EEEEE MMMMM dd yyyy hh:mm aaa
+maven.xdoc.includeProjectDocumentation=yes
+maven.xdoc.version=${pom.currentVersion}
+
+maven.docs.outputencoding=UTF-8
+maven.docs.src=doc/xdocs
+#maven.docs.dest=${basedir}/doc/generated
+#maven.eclipse.classpath.include=src/test-cactus
+maven.war.webxml=${maven.war.src}/WEB-INF/web.xml
+maven.war.final.name=${pom.artifactId}-${pom.currentVersion}.war
+maven.war.webapp.dir=${maven.build.dir}/webapp
+maven.war.src=web
+maven.site.deploy.method=fs
+
+
+# Allows me to override the default jars used for dependencies.
+maven.jar.override=on
+# Override to use newer version of checkstyle which includes may fixes and new edits (default is 3.4).
+maven.jar.checkstyle=4.0-beta4
+maven.jar.checkstyle-optional=4.0-beta4
+maven.jar.commons-beanutils=1.7.0
+
+# This entry tells the maven checkstyle plugin to use our checkstyle configuration
+maven.checkstyle.properties=${env.PROJECTS_HOME}/ManheimStandards/config/manheim_standard_checkstyle_config.xml
+maven.pmd.enable=true
+maven.jar.pmd=3.0
+maven.pmd.cpd.minimumtokencount=40
+maven.pmd.cpd.enable=true
+maven.pmd.includes=**/*.java
+maven.pmd.rulesetfiles=${env.PROJECTS_HOME}/ManheimStandards/config/manheim_standard_pmd_config.xml
+maven.compile.source=1.5
+maven.compile.target=1.5
+maven.compile.fork=yes
+maven.compile.executable=${env.MAVEN_JAVA_HOME}/bin/javac
+
+manheim.axiscook.servicename=BlobService
+
+# ensure a new JVM is used for junit testing for jar:jar
+maven.junit.fork=yes
+#if using jdk1.5
+maven.junit.jvm=${env.MAVEN_JAVA_HOME}/jre/bin/java
+
+# STAGING
+#maven.tomcat.scheme=http
+#maven.tomcat.host=cp-appdev01.imanheim.com
+#maven.tomcat.username=gateway
+#maven.tomcat.password=gateway
+#maven.tomcat.port=9092
+
+# DEVELOPMENT
+maven.tomcat.scheme=http
+maven.tomcat.host=localhost
+maven.tomcat.port=9000
+maven.tomcat.username=tomcat
+maven.tomcat.password=tomcat
+
+#GLOBAL
+maven.tomcat.war.context=/${pom.artifactId}-${pom.currentVersion}
+maven.tomcat.precompile=false

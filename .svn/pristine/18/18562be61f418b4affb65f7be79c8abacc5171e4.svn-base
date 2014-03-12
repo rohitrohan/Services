@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>
+BlobServer Web Services Documentation
+</title>
+<style type="text/css">
+
+ .header {font-weight: bold; font-family: arial; font-size: 18px; color: #408080; font-weight: normal}
+ .summary {font-weight: bold; font-family: arial; font-size: 16px; color: #000000; font-weight: normal} 
+ 
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>Manheim - BlobServer Web Services Documentation</h1>
+<hr />
+</div>
+
+<div class="summary">
+<h2>OVERVIEW</h2>
+The BlobServer Web Service retrieve blobs/documents/artifacts stored by the BlobManager
+under a SOA bus Retrieval will often consist of getting a URL that can be included in an HTML file,
+and displayed to the user as appropriate for the browser.  Meta data, essentially key/value pairs,
+can be associated with any stored object.  Details of the storage is completely hidden
+from application programmers.
+<br /><br /> 
+In production, this would be a URL in the form: 
+ 
+<br><br>&nbsp;&nbsp;&nbsp; http://webservices.manheim.com/BlobServerWebService/file/(BlobName).(file extension)
+ 
+<br><br>Alternatively, to request a file by specific Id UUID: 
+ 
+<br><br>&nbsp;&nbsp;&nbsp; http://webservices.manheim.com/BlobServerWebService/file/_(ID UUID value).(file extension) //note the underscore. <br><br>The staging environment is the same, only the domain is &quot;imanheim.com&quot;. 
+ 
+<br><br>The BlobServer can also do basic image manipulation functions, such as scaling and format shifting. To request an image file blob, use a URL in the fomat:<br><br>&nbsp;&nbsp;&nbsp;&nbsp; http://webservices.manheim.com/BlobServerWebService/image/(width in pixels)/(height in pixels)/(BlobName).(Extenstion of final image) 
+
+ 
+or 
+ 
+<br><br>&nbsp;&nbsp;&nbsp; http://webservices.manheim.com/BlobServerWebService/image/(width in pixels)/(height in pixels)/_(ID UUID value).(Extenstion of final image)
+ 
+<br><br>This will perform a letterboxed, maximum aspect ration scale of the image to the specified size, and the image format specified by the extension. Images are cached once they are scaled, so you can use this URL as a direct link -- you don't have to store and hold the image in your application. 
+
+ 
+<br><br><h2><strong>Supported image extensions/formats are: 
+ 
+    </strong></h2>* jpg, jpeg - Joint Photographic Expert Group 
+    <br>* gif - Graphics Interchange Format 
+    <br>* png - Portable Network Graphics 
+    <br>* wbmp - Wireless Bitmap 
+    <br>* tif, tiff - Tagged Image File Format 
+ 
+<br><br>The blob server also supports a /BlobServerWebService/findByMetadata? URL. <br><br>In this you can pass in values on the request line and it will return a single line text/plain response with the Name of the first matching blob (like findBlobByMetadata() mentioned above). This can make it easier to provide links/display of data in the BlobManager without requiring including the Manager API and associated dependencies in your application. 
+ 
+<br><br>For simple uploads from a ajax style application, the /BlobServerWebService/ upload will allow you to send a mutlipart/formdata request containing 1 fire item and 0..n field parameters as name value pairs representing metadata you wish to store with the file. It will respond with a single line text/plain document containing the name UUID for the stored blob. 
+ 
+<br><br>Finally, the BlobServer provides SOAP access to the BlobManager API. You can find the WSDL for the SOAP service here:  
+ 
+<b>SUPPORTED CHANNELS ARE</b>:
+<br />
+PRESALES<br />
+DIRECTINVENTORY<br />
+ENCORE<br />
+SIMULCAST<br />
+CYBERAUCTION<br />
+OVE<br />
+<br /><h2>WSDL</h2>
+<ul>
+<li><a href="/BlobServerWebService/services/BlobService?wsdl">BlobServer Web Services WSDL</a></li>
+</ul>
+http://webservices.imanheim.com/BlobServerWebService/services/BlobService?wsdl
+
+</div>
+
+</body>
+</html>
+
+

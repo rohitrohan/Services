@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Object Mapping DTD Version 1.0//EN"
+     "http://castor.exolab.org/mapping.dtd">
+<!--
+    Document   : castor-mapping.xml
+    Created on : September 6, 2005, 4:13 PM
+    Author     : rcooper
+    Description:
+        This is a sample mapping file for castor to demonstrate REST services.
+        See: http://castor.org/xml-mapping.html for mor information
+-->
+
+<mapping>
+
+    <class name="com.manheim.ws.template.model.Data">
+        <map-to xml="data"/>
+        <field  name="id"
+                type="integer" >
+            <bind-xml name="id" node="attribute"/>
+        </field>
+        <field  name="name"
+                type="java.lang.String" >
+            <bind-xml name="name" node="attribute"/>
+        </field>
+        <field  name="children"
+                type="com.manheim.ws.template.model.Child" 
+                collection="array" >
+            <bind-xml name="child" />
+        </field>
+    </class>    
+    
+    <class name="com.manheim.ws.template.model.Child">
+        <field  name="id"
+                type="integer" >
+            <bind-xml name="id" node="attribute"/>
+        </field>
+        <field  name="name"
+                type="java.lang.String" >
+            <bind-xml name="name" node="attribute"/>
+        </field>        
+    </class>    
+    
+    <class name="com.manheim.ws.template.model.rest.GetDataRequest">
+        <map-to xml="getDataRequest"/>
+        <field  name="numberOfChildren"
+                type="integer" 
+                required="true" >
+            <bind-xml name="numberOfChildren" node="element"/>
+        </field>
+        <field  name="name"
+                type="java.lang.String"
+                required="true" >
+            <bind-xml name="name" node="element"/>
+        </field>
+    </class>
+    
+</mapping>

@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE>Gateway Release Plan</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.9.79  (Win32)">
+	<META NAME="CREATED" CONTENT="20060511;10540807">
+	<META NAME="CHANGED" CONTENT="20060511;10594734">
+	<STYLE>
+	<!--
+		TD P { color: #000000 }
+		H1 { margin-top: 0.13in; margin-bottom: 0.13in; color: #408080; font-family: "Trebuchet MS", "Tw Cen MT", "Verdana"; font-size: 18pt; font-weight: medium }
+		P { color: #000000 }
+		H3 { margin-top: 0.13in; margin-bottom: 0.13in; color: #000000; font-family: "Trebuchet MS", "Tw Cen MT", "Verdana"; font-size: 12pt }
+		H2 { margin-top: 0.13in; margin-bottom: 0.13in; color: #000000; font-family: "Arial"; font-size: 15pt }
+		A:link { color: #408080 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#408080" BGCOLOR="#ffffff" DIR="LTR">
+<H1><B>Blob Server 1.0.1 Release Plan</B></H1>
+<H2>Release Summary</H2>
+<TABLE BORDER=1 BORDERCOLOR="#000000" CELLPADDING=3 CELLSPACING=0>
+	<TR>
+		<TD WIDTH=120>
+			<P><B>Version</B></P>
+		</TD>
+		<TD WIDTH=200>
+			<P>Blob Server 1.0.1</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=120>
+			<P><B>Date</B></P>
+		</TD>
+		<TD WIDTH=200>
+			<P>5/11/2006</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P><B>Release Type</B></P>
+		</TD>
+		<TD>
+			<P>Production</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P><B>Release Time</B></P>
+		</TD>
+		<TD>
+			<P>9:00 PM</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P><B>Affected Machines</B></P>
+		</TD>
+		<TD>
+			<P>cp-app05  cp-app06  tx-app05  tx-app06</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P><B>Gateway Contact</B></P>
+		</TD>
+		<TD>
+			<P>Robert Cooper</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P><B>Gateway Contact Info</B></P>
+		</TD>
+		<TD>
+			<P>IM:kebernet Cell: 404-543-8358</P>
+		</TD>
+	</TR>
+</TABLE>
+<H2>Release Schedule</H2>
+<TABLE WIDTH=383 BORDER=1 BORDERCOLOR="#000000" CELLPADDING=3 CELLSPACING=0>
+	<COL WIDTH=36>
+	<COL WIDTH=333>
+	<TR>
+		<TD WIDTH=36>
+			<P><I><B>Time</B></I></P>
+		</TD>
+		<TD WIDTH=333>
+			<P><I><B>Action</B></I></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=36>
+			<P><B>9:00</B></P>
+		</TD>
+		<TD WIDTH=333>
+			<P>WARs redeployed</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=36>
+			<P><B>9:10</B></P>
+		</TD>
+		<TD WIDTH=333>
+			<P>Connection pool stress tested 
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<H2>New Service Projects</H2>
+<H3>New JVM Args</H3>
+<P>(none)</P>
+<H3>Data Sources</H3>
+<P>(no changes)</P>
+<H3>Properties Files</H3>
+<P>None 
+</P>
+<H2>WAR Location</H2>
+<P><A HREF="http://midev/maven/repo/manheim-ws/wars/blobserver.war">http://midev/maven/repo/manheim-ws/wars/blobserver.war</A></P>
+<P><BR><BR>
+</P>
+<H2>Dependencies</H2>
+<TABLE WIDTH=100% BORDER=1 BORDERCOLOR="#000000" CELLPADDING=3 CELLSPACING=0>
+	<TR>
+		<TD>
+			<P>Service</P>
+		</TD>
+		<TD>
+			<P>Handlers</P>
+		</TD>
+		<TD>
+			<P>Handler Contact</P>
+		</TD>
+		<TD>
+			<P>PCML</P>
+		</TD>
+		<TD>
+			<P>PCML Contact</P>
+		</TD>
+		<TD>
+			<P>Notes</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+	</TR>
+</TABLE>
+<H2>Web Service Response Interface Changes</H2>
+<P STYLE="margin-bottom: 0in"><EM>These are changes that require
+clients to change their client zip</EM> 
+</P>
+<TABLE WIDTH=100% BORDER=1 BORDERCOLOR="#000000" CELLPADDING=3 CELLSPACING=0>
+	<TR>
+		<TD>
+			<P>Service</P>
+		</TD>
+		<TD>
+			<P>Handler</P>
+		</TD>
+		<TD>
+			<P>Handler Contact</P>
+		</TD>
+		<TD>
+			<P>Affected Gateway Users</P>
+		</TD>
+		<TD>
+			<P>New Fields</P>
+		</TD>
+		<TD>
+			<P>Notes</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+		<TD>
+			<P>&nbsp;</P>
+		</TD>
+	</TR>
+</TABLE>
+<H2>Bugs</H2>
+<UL>
+	<LI><P>Corrected con<SPAN LANG="en-US">nection pool leak in the
+	findByMetadata servlet.</SPAN></P>
+	<LI><P>Corrected problem where getByMetadata in BlobManager would
+	throw rather than return null.</P>
+</UL>
+<H2>New Features</H2>
+<UL>
+	<LI><P></P>
+</UL>
+<H2>Improvements</H2>
+<UL>
+	<LI><P></P>
+</UL>
+<H2>Tagged Projects for release 
+</H2>
+<UL>
+	<LI><P></P>
+</UL>
+<H1><BR><BR>
+</H1>
+</BODY>
+</HTML>

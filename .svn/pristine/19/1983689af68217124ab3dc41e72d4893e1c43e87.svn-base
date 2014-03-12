@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Template Web Service">
+  <title>Template Web Service</title>
+  <body>
+    <links>
+      <item href="http://maven.apache.org/" name="Maven">
+      </item>
+    </links>
+    <menu name="Overview">          
+        <item name="Servers" href="/servers.html" />
+        <item href="/faq.html" name="FAQ" />
+    </menu>
+    <menu name="Web Service">
+         <item href="/util/happyaxis.jsp" name="HappyAxis" />
+         <item href="/services" name="Services" />
+    </menu>
+  </body>
+</project>

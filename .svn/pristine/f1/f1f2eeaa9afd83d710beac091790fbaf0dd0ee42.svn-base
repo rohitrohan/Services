@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+Tomcat context.xml file. 
+$Header: /export/repo/cvsroot/WebServices/BlobServer/conf/context.xml,v 1.23 2013/03/04 21:20:54 pdavidson Exp $ 
+
+-->
+
+<Context privileged="true" antiResourceLocking="false" antiJARLocking="false" docBase="BlobServerWebService-#version#" >
+
+<!-- required for global logging appender -->
+<ResourceLink name="jdbc/LoggingDataSource"
+            global="jdbc/LoggingDataSource"
+            type="javax.sql.DataSource" /> 
+            
+<!-- Note, these are OK... Really. Tomcat won't create the resource until the first request for it,
+     so having multiple configs doesn't mean that TC will create all these DataSources at runtime.
+     These are switched based on the system.environment value.
+-->
+
+         
+<Resource name="jdbc/blobs-file-DEV" auth="Container" type="javax.sql.DataSource"
+               maxActive="60" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="15" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS =(PROTOCOL = TCP)(HOST = devnixoradb01.imanheim.com)(PORT = 1525))(CONNECT_DATA =(SERVER = DEDICATED) (SERVICE_NAME = MHDEV2)))"/>
+
+<Resource name="jdbc/blobs-blobdata-DEV" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS =(PROTOCOL = TCP)(HOST = devnixoradb01.imanheim.com)(PORT = 1525))(CONNECT_DATA =(SERVER = DEDICATED) (SERVICE_NAME = MHDEV2)))"/>
+
+<Resource name="jdbc/blobs-file-STAGE" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+         
+<Resource name="jdbc/blobs-blobdata-STAGE" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+
+<Resource name="jdbc/blobs-file-ETEQA1" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+         
+<Resource name="jdbc/blobs-blobdata-ETEQA1" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+
+<Resource name="jdbc/blobs-file-ETEQA2" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+         
+<Resource name="jdbc/blobs-blobdata-ETEQA2" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+
+<Resource name="jdbc/blobs-file-ETEQA3" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+         
+<Resource name="jdbc/blobs-blobdata-ETEQA3" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+
+<Resource name="jdbc/blobs-file-ETEQA4" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+         
+<Resource name="jdbc/blobs-blobdata-ETEQA4" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+
+<Resource name="jdbc/blobs-file-PREPROD" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+         
+<Resource name="jdbc/blobs-blobdata-PREPROD" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="BLOBMAN" password="bland3v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =  STAGINGRAC.imanheim.com)(PORT = 1521))(LOAD_BALANCE = yes)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = BLOBMGR)(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))"/>
+
+<Resource name="jdbc/blobs-file-PROD" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="ecrblob" password="ecobl1v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=prodrac.imanheim.com)(PORT=1521))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=MHCOMMBY_OLTP)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))"/>               
+               
+<Resource name="jdbc/blobs-blobdata-PROD" auth="Container" type="javax.sql.DataSource"
+               maxActive="40" maxIdle="10" maxWait="10000"
+               username="ecrblob" password="ecobl1v3" driverClassName="oracle.jdbc.driver.OracleDriver"
+               removeAbandoned="true" removeAbandonedTimeout="30" logAbandoned="true"
+               validationQuery="SELECT * FROM KEYWORDCOUNTS" testWhileIdle="true"
+               url="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=prodrac.imanheim.com)(PORT=1521))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=MHCOMMBY_OLTP)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))"/>
+
+               
+    <!--  AUTHENTICATION DATASOURCES  -->
+
+    <!-- dev -->
+    <Resource name="jdbc/AUTHDS-JDBC-DEV" auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="5" maxIdle="5" maxWait="15000"
+              removeAbandoned="true" removeAbandonedTimeout="60"
+              validationQuery="select 1 from SYSIBM.SYSDUMMY1" testWhileIdle="true"
+              driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+              username="MOLJDBC" password="MOLJDBC"
+              url="jdbc:as400://mmscd400.man.cox.com" />
+
+    <!-- legacy qa -->
+    <Resource name="jdbc/AUTHDS-JDBC-QA" auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="5" maxIdle="5" maxWait="15000"
+              removeAbandoned="true" removeAbandonedTimeout="60"
+              validationQuery="select 1 from SYSIBM.SYSDUMMY1"  testWhileIdle="true"
+              driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+              username="CUSJDBCTST" password="CUSS101309"
+              url="jdbc:as400://mmtst400.man.cox.com" />
+
+    <!-- ete qa silos 1-4 -->
+    <Resource name="jdbc/AUTHDS-JDBC-ETEQA1" auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="5" maxIdle="5" maxWait="15000"
+              removeAbandoned="true" removeAbandonedTimeout="60"
+              validationQuery="select 1 from SYSIBM.SYSDUMMY1" testWhileIdle="true"
+              driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+              username="AUTUSRTST" password="AUT10B4B41"
+              url="jdbc:as400://mqtm1400.man.cox.com" />
+
+    <Resource name="jdbc/AUTHDS-JDBC-ETEQA2" auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="5" maxIdle="5" maxWait="15000"
+              removeAbandoned="true" removeAbandonedTimeout="60"
+              validationQuery="select 1 from SYSIBM.SYSDUMMY1" testWhileIdle="true"
+              driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+              username="AUTUSRTST" password="AUT10B4B41"
+              url="jdbc:as400://mqtm2400.man.cox.com" />
+
+    <Resource name="jdbc/AUTHDS-JDBC-ETEQA3" auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="5" maxIdle="5" maxWait="15000"
+              removeAbandoned="true" removeAbandonedTimeout="60"
+              validationQuery="select 1 from SYSIBM.SYSDUMMY1" testWhileIdle="true"
+              driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+              username="AUTUSRTST" password="AUT10B4B41"
+              url="jdbc:as400://mqtm3400.man.cox.com" />
+
+    <Resource name="jdbc/AUTHDS-JDBC-ETEQA4" auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="5" maxIdle="5" maxWait="15000"
+              removeAbandoned="true" removeAbandonedTimeout="60"
+              validationQuery="select 1 from SYSIBM.SYSDUMMY1" testWhileIdle="true"
+              driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+              username="AUTUSRTST" password="AUT10B4B41"
+              url="jdbc:as400://mqtm4400.man.cox.com" />
+
+    <!-- new (ete) preprod -->
+    <Resource name="jdbc/AUTHDS-JDBC-PREPROD" auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="5" maxIdle="5" maxWait="15000"
+              removeAbandoned="true" removeAbandonedTimeout="60"
+              validationQuery="select 1 from SYSIBM.SYSDUMMY1" testWhileIdle="true"
+              driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+              username="CUSJDBCTST" password="CUSS101309"
+              url="jdbc:as400://mmtst400.man.cox.com" />
+
+    <!-- legacy preprod -->
+    <Resource name="jdbc/AUTHDS-JDBC-STAGE" auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="10" maxIdle="10" maxWait="15000"
+              removeAbandoned="true" removeAbandonedTimeout="30"
+              validationQuery="select 1 from SYSIBM.SYSDUMMY1" testWhileIdle="true"
+              driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+              username="CUSJDBCTST" password="CUSS101309"
+              url="jdbc:as400://mmtst400.man.cox.com" />
+
+    <!-- prod -->
+    <Resource name="jdbc/AUTHDS-JDBC-PROD" auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="10" maxIdle="10" maxWait="15000"
+              removeAbandoned="true" removeAbandonedTimeout="30"
+              validationQuery="select 1 from SYSIBM.SYSDUMMY1" testWhileIdle="true"
+              driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+              username="CUSJDBC" password="atrj645"
+              url="jdbc:as400://mmsc400.man.cox.com" />
+               
+</Context>

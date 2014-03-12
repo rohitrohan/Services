@@ -1,0 +1,61 @@
+<pcml version="2.0">
+   	<struct name="APIHEADER">
+   	   <data name="apiTrans"        type="char"      length="10"    init="VINDECDRSS" />
+   	   <data name="apiLibrList"     type="char"      length="10"    init=" " />
+   	   <data name="apiRelease"      type="char"      length="6"     init="V1R1M0" />
+   	   <data name="apiUserID"       type="char"      length="10"    init=" " />
+   	   <data name="apiClientID"     type="char"      length="6"     init=" " />
+   	   <data name="apiCharFmt"      type="char"      length="1"     init="E" />
+   	   <data name="apiClientD"      type="char"      length="3"     init="FB " />
+   	   <data name="apiAddBuff"      type="char"      length="1"     init=" " />
+   	   <data name="apiTrnStat"      type="char"      length="10"    init=" " />
+   	   <data name="apiErrID"        type="char"      length="7"     init=" " />
+   	   <data name="apiErrFld"       type="char"      length="16"    init=" " />
+   	   <data name="apiErrSev"       type="char"      length="1"     init=" " />
+   	   <data name="apiErrMsg"       type="char"      length="100"   init=" " />
+   	   <data name="apiMsgData"      type="char"      length="50"    init=" " />
+   	   <data name="apiMsgFile"      type="char"      length="10"    init=" " />
+   	   <data name="apiMsgFileL"     type="char"      length="10"    init=" " />
+   	   <data name="apiAction"       type="char"      length="1"     init="I" />
+   	   <data name="apiDebug"        type="char"      length="1"     init="N" />
+   	   <data name="apiLogging"      type="char"      length="1"     init="N" />
+   	   <data name="apiReserved"     type="char"      length="2"     init=" " />
+   	</struct>
+
+	<struct name="TRANSINPUT">
+		<data name="VinNumber" 	type="char" length="17"/>
+		
+	</struct>
+	<struct name="VEHICLE">
+		<data name="ModelYear" 		type="zoned" length="4" precision="0"/>
+		<data name="Make" 		type="char" length="10"/>
+		<data name="Model" 		type="char" length="12"/>
+		<data name="Model15" 		type="char" length="15"/>
+		<data name="SubSeries" 		type="char" length="10"/>
+		<data name="Body" 		type="char" length="4"/>
+		<data name="Engine" 		type="char" length="3"/>
+		<data name="FourByFour" 	type="char" length="1"/>
+		<data name="NonVinInfo" 	type="char" length="6"/>
+         </struct>                                   
+   
+	<!-- Program VINDECDRSS updated on 12/13/2002
+	*   	decode VIn number, reuturn vehicle info and sub series
+	*
+	*   Use new HEADINFO layout
+        * 12/13/2002 TQUAN  created        
+	*	
+	*
+	*
+	*
+	*
+	* -->
+
+	<program name="VINDECDRSS" path="/QSYS.LIB/%LIBL%.LIB/VINDECDRSS.PGM">
+	   <data name="Header" 	type="struct" struct="APIHEADER" usage="inputoutput" />
+	   <data name="Trans" 	type="struct" struct="TRANSINPUT" usage="inputoutput" />
+	   <data name="RecordCount" type="int" length="4" precision="32" usage="output" />
+	   <data name="vehicle"  type="struct"   struct="VEHICLE" count="RecordCount" usage="output" outputsize="32767"/>
+		
+				
+	</program>
+</pcml>

@@ -1,0 +1,101 @@
+<deployment xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+  <globalConfiguration>
+
+    <!-- This fixes the encoding types so they are compatible with WSDL.exe in the .NET SDK -->
+    <parameter name="dotNetSoapEncFix" value="true"/>
+
+  </globalConfiguration>
+  <service name="BlobService" provider="java:RPC" style="wrapped" use="literal">
+
+    <!-- The class name for your service -->
+    <parameter name="className" value="com.manheim.ws.blobmanager.BlobService"/>
+
+    <!-- This determines the methods exposed a services. You can use * as well, but this is not a good habit to be in. -->
+    <parameter name="allowedMethods" value="*"/>    
+
+    <!-- Axis is pretty smart about finding your datatypes, but if you take an interface where the type is not immediately
+         obvious to the method, like the IDataObject, you need to specify other root classes that Axis might not know about
+         otherwhise with the other classes value. (Space delimited) 
+         You will also notice that the WSDL will put an xsd:any into the arguement for the interface exposure, so this type
+         of structure should be avoided when possible. It is important to understand this because when people build a client
+         implementation, it will not explicitly define the object type to set.
+ 
+         Also notice how "OtherDataDerived" gets an xsd:extension whereas an Interface doesn't. When possible, you should 
+         make your data beans extend a common base class, rather than using interfaces, as this will sidestep the "xsd:any"
+         problem for external clients. 
+
+        Filling this out makes sure that these classes appear in the schema on the WSDL. Be sure to look at the typeMapping
+        tags below as well!
+        -->
+    <!--
+    <parameter name="extraClasses" value="com.manheim.ws.template.model.OtherData 
+                                          com.manheim.ws.template.model.OtherDataDerived
+                                          com.manheim.ws.template.othermodel.OtherDataPackage" />
+    -->                                      
+    <!-- This is a good idea, because it keeps Axis from binding the namespace to the local server info, making you client
+         classes more portable. 
+
+         You will also notice how this namespace doesn't apply to "model" datatypes in the example. All datatypes will be
+         mapped to their package name in inverse notation as a namespace. This is a really good thing in terms of how a 
+         client will be generated, because it means if I want to intermingle client code across multiple web services and
+         they use, say com.manheim.common.model.Vehicle, the generation from the http://model.common.manheim.com namespace
+         will give a single class file that can be used across Web Service client instances. See the OtherDataPackage 
+         example above. -->
+    <namespace>http://webservices.manheim.com</namespace>
+    
+    <!-- These are the type mappings for the data values I am going to use. With the exception of the Enum type, they are 
+         all going to be pretty identical with the BeanSerializer. 
+
+         You may be asking yourself why you need this. That is actually a good question. The short answer is, the 
+         introspection and the "Extra Classes" above only relate to the generation of the XSD. These typeMappings
+         are actually used at runtime. -->  
+     <typeMapping xmlns:ns="http://webservices.manheim.com"
+        qname="ns:Data"
+        type="java:com.manheim.blobmanager.data.databean.AbstractDataBean"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+     <typeMapping xmlns:ns="http://webservices.manheim.com"
+        qname="ns:Blob"
+        type="java:com.manheim.blobmanager.data.databean.Blob"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+     <typeMapping xmlns:ns="http://webservices.manheim.com"
+        qname="ns:BlobMetaData"
+        type="java:com.manheim.blobmanager.BlobMetadata"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />  
+      <typeMapping xmlns:ns="http://webservices.manheim.com"
+        qname="ns:MetaDataItem"
+        type="java:com.manheim.blobmanager.MetadataItem"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      
+      <typeMapping xmlns:ns="http://webservices.manheim.com"
+        qname="ns:Source"
+        type="java:com.manheim.ws.blobmanager.Source"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+
+    <!-- exception types -->
+    <typeMapping xmlns:ns="http://webservices.manheim.com"
+            qname="ns:BlobException"
+            type="java:com.manheim.ws.blobmanager.BlobException"
+            serializer="com.manheim.ws.core.axis.ExceptionBeanSerializerFactory"
+            deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+            encodingStyle=""
+      /> 
+
+  </service>
+
+</deployment>

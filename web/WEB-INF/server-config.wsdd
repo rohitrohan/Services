@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="enableNamespacePrefixOptimization" value="true"/>
+  <parameter name="dotNetSoapEncFix" value="true"/>
+  <parameter name="disablePrettyXML" value="true"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+ </globalConfiguration>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <service name="BlobService" provider="java:RPC" style="wrapped" use="literal">
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="className" value="com.manheim.ws.blobmanager.BlobService"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns1:Data" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.manheim.blobmanager.data.databean.AbstractDataBean" xmlns:ns1="http://webservices.manheim.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns2:Blob" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.manheim.blobmanager.data.databean.Blob" xmlns:ns2="http://webservices.manheim.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns3:BlobMetaData" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.manheim.blobmanager.BlobMetadata" xmlns:ns3="http://webservices.manheim.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns4:MetaDataItem" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.manheim.blobmanager.MetadataItem" xmlns:ns4="http://webservices.manheim.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns5:Source" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.manheim.ws.blobmanager.Source" xmlns:ns5="http://webservices.manheim.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns6:BlobException" serializer="com.manheim.ws.core.axis.ExceptionBeanSerializerFactory" type="java:com.manheim.ws.blobmanager.BlobException" xmlns:ns6="http://webservices.manheim.com"/>
+  <namespace>http://webservices.manheim.com</namespace>
+ </service>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+  <parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>

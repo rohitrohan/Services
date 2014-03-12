@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE panel PUBLIC '-//Thinlets 1.0//EN' 
+   'https://thinlet.dev.java.net/thinlet.dtd'>
+<panel columns="1" halign="fill">
+   <menubar>
+      <menu name="File" text="File">
+         <menuitem text="Open"/>
+      </menu>
+      <menu name="Edit" text="Edit"/>
+   </menubar>
+   <panel border="true" colspan="2" columns="3" height="480" width="640">
+      <panel columns="1" width="500">
+         <table weightx="500" width="100"/>
+      </panel>
+      <splitpane divider="0"/>
+      <panel>
+         <togglebutton selected="true" text="Foo!"/>
+         <tree/>
+      </panel>
+      <progressbar colspan="3" value="36"/>
+   </panel>
+</panel>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:j="jelly:core">
+
+  <preGoal name="java:compile">
+  	<attainGoal name="axis-cook:genclient" />
+  </preGoal>
+  
+	
+  <postGoal name="jar">
+  	<!-- do something after jar goal -->
+  </postGoal>
+  <goal name="jmeter:record">
+        <property name="maven.junit.sysproperties" value="http.proxyHost http.proxyPort" />
+        <attainGoal name="test" />
+ </goal>
+</project>
+

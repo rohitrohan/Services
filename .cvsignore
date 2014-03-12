@@ -1,0 +1,8 @@
+.classpath
+velocity.log
+jcoverage.ser
+.pmd
+target
+.nbintdb
+build.properties
+.project

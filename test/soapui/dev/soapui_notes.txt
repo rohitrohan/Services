@@ -1,0 +1,98 @@
+SoapUI Notes
+--------------------------------------
+
+A SoapUI project including valid requests for all methods on the Vehicle Decoder Web Service
+is included in the file "BlobServerService-soapui-project.xml". After installing and running
+SoapUI (http://www.soapui.org), import this project using the File->Import Project menu option.
+This project points to the staging instance of the web service running at Manheim. It is possible
+that this service may be down from time to time.
+
+The tests in this project may be run from within SoapUI, but the BlobServer project also 
+includes the SoapUI plugin for Maven 1.x, which enables testing directly from a command line.
+The Maven features are described in more detail following the SoapUI instructions. 
+
+Open the project, then open the method you want to test by clicking on the "+" to the left of 
+the method name. Each method contains a single request item that is named the same as the method. 
+Double-click the request item. This opens the Request Editor, where you can see and/or edit 
+the parameters being sent on the request. These examples are prepopulated with valid parameters.
+
+Click the green arrow in the upper left of the Request Editor window to execute the call. The 
+response will appear in the right-hand pane.
+
+You can edit the values in these requests, or add new requests for the methods you are testing.
+When you create new requests, all parameters default to "?". Replace all essential parameters
+with real values. To pass null, remove the "?" and pass nothing. Any call using a "?" as a
+parameter will produce unpredictable results, or an error message. The required parameters are
+documented in Vehicle_Decoder_Web_Service_General_Usage.doc.
+
+If you want to save your changes, select File->Save All.
+
+------------------------------------------
+BUILDING A SOAPUI PROJECT FROM SCRATCH
+------------------------------------------
+To build your own project from scratch (after installing and running SoapUI):
+
+1.	Select the File->New WSDL Project menu item. Give the project a name and save it.
+
+2.	Add a WSDL to the project. You can add either from a pre-existing file, or directly from a URL.
+	Right-click on the project and make your choice.
+
+	a.  Add WSDL from FILE - you can get the file with your browser by going to the URL and saving it 
+	(for example - http://myhost:port/blobserver-version#/services/BlobService?wsdl 
+	with user testdeal1 password testdeal1). 
+
+	b. Add WSDL from URL. The 1.5 final of SoapUI seems to work with add WSDL from URL and 
+	prompts for user/pass, previously it could not authenticate, if you try to import from URL make sure 
+	you get prompted for user/pass. 
+
+3.  SoapUI will automatically build the operations and a sample request name "Request1" for each 
+    method on the service. All parameters default to "?", however you must change these all to be either 
+    a valid value or else remove the "?" to ensure predictable results.
+
+4.  BlobServer Web Service requires authentication. You must provide a username and password on each
+    request. To do this, open the request and go to the Details tab. This is located in a pane at the 
+    bottom left corner, under the list of projects. Under "Request Properties," add the user and password 
+    (for example testdeal1/testdeal1). Make sure to click outside of the "password" box after you edit, otherwise the 
+    password does not get set.
+
+5.  Go to File->Preferences->HTTP Settings and make sure to check "Autheticate Preemptively" 
+	(or you may get 401 auth header missing errors depending on how the service was implemented).
+
+6.  Open one of the requests (for example the request "Request1" on the "getBlobsbyMetaData" method on the 
+	BlobServer Service).
+
+7.  Plug in params for the request. For "getBlobsbyMetaData" try entering name=vin value=1J4FF68S6XL659785,name=dealerid value=1317294,
+    and name=appname value=LOADTEST. The required parameters are
+    documented in http://wiki.imanheim.com:8888/JSPWiki/Wiki.jsp?page=BlobManager.
+
+8.  Click the green play arrow as described above. 
+
+9.  To save your requests, hosts, etc., select File->Save All.
+
+---------------------------------------------------------------
+MAVEN: RUNNING TESTCASES AND LOAD TESTS FROM THE COMMAND LINE
+---------------------------------------------------------------
+The BlobServer Web Service includes the SoapUI plugin for Maven 1.x, which enables running
+loadtests and testcases from a command line. You must have SoapUI installed, and the BlobServerWebService
+project must build successfully. Assuming these two dependencies are fulfilled, you can open a command 
+line and navigate to the root of the BlobServer WebService project. There are two maven goals defined 
+for SoapUI: 
+
+ maven soapui:test
+ maven soapui:loadtest
+ 
+The project.properties file defines default values for the endpoint to test, 
+the default test case, and the default load test. The property names are:
+
+ maven.soapui.test.endpoint
+ maven.soapui.test.testcase
+ maven.soapui.test.loadtest
+
+These values can all be overridden on the command line by specifying a new value. To change endpoints,
+for example:
+
+ maven soapui:test -Dmaven.soapui.test.endpoint=http://some-end-point
+ 
+The SoapUI website contains more documentation on the Maven plugin at:
+ http://soapui.com/plugin/maven1/index.html
+ 

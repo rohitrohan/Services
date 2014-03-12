@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>WEB-INF/build-info.properties</value>
+            </list>
+        </property>
+    </bean>
+
+	<bean id="jvmMonitor" class="com.manheim.monitor.impl.JVMMemoryMonitor">
+		<property name="resource" value="JVM Runtime"/>
+		<property name="minPercentAvailable" value="10"/>
+		<property name="interval" value="0"/>
+	</bean>
+	
+	<bean id="dataSourceJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/blobs-blobdata-${system.environment}</value>
+		</property>
+	</bean>
+	
+	<!-- User Defined DataSource Monitors -->
+	<bean id="dataSourceBlobData" class="com.manheim.monitor.impl.DataSourceMonitor">
+		<property name="resource">
+			<value>blobs-blobdata-${system.environment}</value>
+		</property>
+		<property name="dataSource">
+			<ref local="dataSourceJNDI" />
+		</property>
+		<property name="tableName">
+		   <value>BLOBMETADATA</value>
+ 	    </property>
+ 	    <property name ="whereClause">
+ 	       <value>ROWNUM = 1</value>
+ 	    </property>
+	</bean>	
+		
+    <bean id="buildInfo" class="com.manheim.monitor.util.BuildInfoImpl">
+    	<property name="version" value="1.1.1"/>
+    	<property name="buildNumber" value=""/>
+    	<property name="buildDate" value="2011-07-14"/>
+        <property name="dateFormat" value="yyyy-MM-dd"/>
+    	<property name="appName" value="BlobServer application"/>
+    </bean>
+	
+	<bean id="systemInfo" class="com.manheim.monitor.util.SystemInfo" />
+	<bean id="monitorProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:monitor.properties"/>
+	</bean>
+	
+	<!-- This class is what controls the monitors defined in your monitorContext file -->
+	<bean id="monitorManager" class="com.manheim.monitor.DefaultMonitorManager" init-method="init" singleton="true">
+		<property name="buildInfo">
+			<ref local="buildInfo" />
+		</property>
+		<property name="systemInfo">
+			<ref local="systemInfo" />
+		</property>
+		<property name="monitorProperties">
+			<ref bean="monitorProps" />
+		</property>
+		<!-- each monitor defined in this file must be added to the list here for the monitor framework to know about the monitor bean-->
+		<property name="monitors">
+			<list>
+				<ref bean="dataSourceBlobData"/>
+			</list>
+		</property>
+	</bean>
+</beans>
